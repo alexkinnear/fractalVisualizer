@@ -1,0 +1,214 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\froman\fcharset0 Times-Roman;\f2\fmodern\fcharset0 Courier;
+\f3\froman\fcharset0 Times-Bold;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue233;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c0\c93333;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{disc\}}{\leveltext\leveltemplateid1\'01\uc0\u8226 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
+\margl1440\margr1440\vieww16340\viewh15460\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs72 \cf0 ASSN4
+\fs24 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 Goal: Clean-up the Programming Systems Product so that the code is easy to read and unused code is deleted\
+\
+Clone the starter code\
+\
+Possible errors include:\
+1. Functions which do too many different things (split up complex functions)\
+2. Unused functions and variables (Simply delete them)\
+3. Unnecessary, duplicated code (create a single function and call it in these cases)\
+4. Dead code (delete) ex. Code after a return statement in a function\
+5. Operations which are spread throughout the program instead of being encapsulated in one place\
+6. Confusing or Contradictory comments (update the comments)\
+7. Variables whose names override other identifiers (change name to a better fit)\
+8. Poorly named identifiers (don\'92t represent what they are)\
+9. \'93Magic\'94 numbers (numbers that are not well named\
+\
+\
+Refactor the code assuming the program works properly\
+\
+Each function should perform one task\
+\
+Separate Code into modules\
+1. main.py - 
+\f1 \cf2 \expnd0\expndtw0\kerning0
+ The driver program; imports other modules, accepts command-line arguments and calls upon other modules to display a fractal on-screen and write a PNG image
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+2. Config.py 
+\f1 \cf2 \expnd0\expndtw0\kerning0
+- Contains a Python dictionary composed of fractal configuration data
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+3. Mandelbrot.py 
+\f1 \cf2 \expnd0\expndtw0\kerning0
+- Given a coordinate in the complex plane, return the iteration count of the Mandelbrot function for that point
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+4. Julia.py 
+\f1 \cf2 \expnd0\expndtw0\kerning0
+- Given a coordinate in the complex plane, return the iteration count of the Julia function for that point
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+5. Gradient.py 
+\f1 \cf2 \expnd0\expndtw0\kerning0
+- Contains an array 
+\f2 G
+\f1  containing 
+\f2 N
+\f1  colors; when the Mandelbrot or Julia fractal function returns an iteration count of a point in the complex plane, the corresponding pixel is painted 
+\f2 G[count]
+\f1  
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+6. ImagePainter.py 
+\f1 \cf2 \expnd0\expndtw0\kerning0
+Creates a Tk window and a 
+\f2 PhotoImage
+\f1  object; the 
+\f2 PhotoImage
+\f1  stores the pixels and is capable of creating a PNG image file
+\f0 \cf0 \kerning1\expnd0\expndtw0 \
+\
+All image creation and display operations should take place in ImagePainter.py\
+main.py doesn\'92t need to import any identifiers from Tk package\
+\
+\
+\pard\pardeftab720\sl340\sa280\partightenfactor0
+
+\f3\b\fs28 \cf2 \expnd0\expndtw0\kerning0
+Fractal Configuration Data\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f1\b0\fs24 \cf2 The two starter programs each contain a dictionary of dictionaries of configuration information which describe a region of the complex plane over which to paint pixels. You must extract this data from the driver program and place it into the 
+\f2 Config.py
+\f1  module. In order to distinguish Julia fractals from Mandelbrot fractals you must add a new key:value pair to each dictionary:\
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl280\partightenfactor0
+\ls1\ilvl0
+\f2 \cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+type: julia
+\f1 \
+\ls1\ilvl0
+\f2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+type: mandelbrot
+\f1 \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\sl280\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	\uc0\u8226 	}\expnd0\expndtw0\kerning0
+\
+\pard\tx720\pardeftab720\sl280\partightenfactor0
+\cf2 \
+\pard\pardeftab720\sl280\sa319\partightenfactor0
+
+\f3\b \cf2 Julia Fractal's complex parameter\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f1\b0 \cf2 Julia fractals take an extra complex number parameter traditionally named 
+\f2 c
+\f1 . Presently, 
+\f2 c
+\f1  is hard-coded into 
+\f2 src/julia.py
+\f1  as 
+\f2 complex(-1, 0)
+\f1 . The 
+\f2 c
+\f1  value may be represented within a fractal configuration dictionary like so:\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f2 \cf2 creal: -1.0,  \
+cimag: 0.0,\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f1 \cf2 Being able to vary this parameter results in more interesting Julia set images.\
+Missing either of 
+\f2 creal
+\f1  or 
+\f2 cimag
+\f1  is an error when a fractal is 
+\f2 type: julia
+\f1 , but their presence is ignored when 
+\f2 type: mandelbrot
+\f1 .\
+\
+\
+
+\fs96 ASSN5\
+
+\fs24 1. Create an abstract class called Fractal.py\
+Default __init__ method should only have : \
+\cf2 \outl0\strokewidth0 \strokec2 raise NotImplementedError("Concrete subclass of Fractal must implement __init__")\
+count() method should just have :\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 raise NotImplementedError("Concrete subclass of Fractal must implement count() method")\
+\
+Julia and Mandelbrot classes should provide their own implementation of __init_ and count() so that no error is raised\
+count() takes a complex number as input and return an int that is the number of iterations tried before the absolute value of the Fractal formula grew larger than 2.0; otherwise the max num of iterations is returned. This operation is the defining characteristic of a Fractal object\
+\
+All other data used by count are supplied through self, if needed\
+\
+Define at least one new concrete subclass of Fractal using a different formula. See instructions for examples or formulas and images to use\
+Sub-classes should be able to be used interchangeably\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+\cf2 The code which uses a 
+\f2 Fractal
+\f1 -derived object does not inspect the object to determine what kind of fractal it is; it just works because it defines the 
+\f2 count()
+\f1  method.\
+Fractal objects should have nothing to do with Gradients or any knowledge about colors\
+\
+2. Create a FractalFactory.py class\
+Should return a concrete fractal object based upon a configuration file given to it from the main program\
+This is the only place where the Fractal class should be imported\
+When no fractal configuration is specified by user on the command line, FractalFactory has a default fractal configuration object that is hardcoded into he program\
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f2 \cf2 FractalFactory
+\f1  must do some basic error checking upon the contents of the fractal configuration file it uses to create a 
+\f2 Fractal
+\f1  object.\
+When a missing or inaccessible fractal is called for, simply let the 
+\f2 open()
+\f1  function fail.\
+When a fractal configuration file contains errors, raise {\field{\*\fldinst{HYPERLINK "https://docs.python.org/3.7/library/exceptions.html#RuntimeError"}}{\fldrslt 
+\f2 \cf3 \ul \ulc3 \strokec3 RuntimeError}}. Possible errors are described in the section "Fractal Configuration File Format" below.\
+\
+3. Create a Gradient abstract class and three concrete sub-classes\
+The 
+\f2 Gradient
+\f1  abstract class exists solely to provide a common structure to the concrete classes that inherit from it. Your program will not create plain 
+\f2 Gradient
+\f1  objects. It will instead use classes derived from 
+\f2 Gradient
+\f1  through inheritance.\
+\
+The 
+\f2 Gradient
+\f1  class cannot be instantiated because its 
+\f2 __init__
+\f1  method is a placeholder which raises {\field{\*\fldinst{HYPERLINK "https://docs.python.org/3.7/library/exceptions.html#NotImplementedError"}}{\fldrslt 
+\f2 \cf3 \ul \ulc3 \strokec3 NotImplementedError}} when called. It need only consist of this line of code:\cf2 \outl0\strokewidth0 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 \outl0\strokewidth0 \strokec2 raise NotImplementedError("Concrete subclass of Gradient must implement __init__")\
+\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+
+\f2 \cf2 Gradient
+\f1  provides a placeholder 
+\f2 getColor()
+\f1  method which raises an exception when called. It consists solely of this statement:\
+
+\f2 raise NotImplementedError("Concrete subclass of Gradient must implement getColor() method")
+\f1 \
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 \outl0\strokewidth0 \
+4. Create a GradientFactory.py class\
+\pard\pardeftab720\sl280\sa240\partightenfactor0
+\cf2 \outl0\strokewidth0 \strokec2 Follow the {\field{\*\fldinst{HYPERLINK "https://sourcemaking.com/design_patterns/abstract_factory"}}{\fldrslt \cf3 \ul \ulc3 \strokec3 Abstract Factory Pattern}} in your program when you need to instantiate objects embodying gradients. 
+\f2 GradientFactory
+\f1  returns a concrete gradient object specified by the user on the command line.\
+The file defining 
+\f2 GradientFactory
+\f1  is the only place in your entire program where your concrete 
+\f2 Gradient
+\f1 -derived classes need to be imported.\
+\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf2 \outl0\strokewidth0 \
+}
